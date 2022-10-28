@@ -1,12 +1,12 @@
 import 'dart:io';
 
 void main() {
-  var books = [];
+  var LIBROS = [];
   var CD = [];
 
-  String? tituloz = "";
-  String? precioz = "";
-  String? npz = "";
+  String? titulos = "";
+  String? autores = "";
+  String? nropaginass = "";
   int m = 0;
   int l = 0;
   int c = 0;
@@ -14,11 +14,10 @@ void main() {
   while (m == 0) {
     print("   MENU PRINCIPAL     ");
     print("________________________");
-    print("|                      |");
-    print("|   [1]   LIBROS       |");
-    print("|   [2]   CD´S         |");
-    print("|   [3]   SALIR        |");
-    print("________________________");
+    print("  [1]   LIBROS       ");
+    print("  [2]   CD´S         ");
+    print("  [3]   SALIR        ");
+
     print("");
     print("  Digite la opción: ");
     String? a = stdin.readLineSync();
@@ -30,11 +29,10 @@ void main() {
           while (l == 0) {
             print("      MENU LIBRO      ");
             print("________________________");
-            print("|                      |");
-            print("|   [1]  REGISTRAR     |");
-            print("|   [2]  LISTAR        |");
-            print("|   [3]  SALIR         |");
-            print("________________________");
+            print("  [1]  REGISTRAR     ");
+            print("   [2]  LISTAR       ");
+            print("   [3]  SALIR        ");
+
             print("");
             print("  Digite la opción: ");
             String? b = stdin.readLineSync();
@@ -42,16 +40,18 @@ void main() {
             switch (b) {
               case "1":
                 {
-                  print("________________________");
-                  print("|   REGISTRAR LIBRO    |");
+                  print("  REGISTRAR LIBRO    ");
                   print("________________________");
                   print("-> TITULO :");
-                  tituloz = stdin.readLineSync();
-                  print("-> PRECIO :");
-                  precioz = stdin.readLineSync();
+                  titulos = stdin.readLineSync();
+                  print("-> AUTOR :");
+                  autores = stdin.readLineSync();
                   print("-> NUMEROS DE PAGINA :");
-                  npz = stdin.readLineSync();
-                  books.add(Libro(titulo: tituloz, precio: precioz, np: npz));
+                  nropaginass = stdin.readLineSync();
+                  LIBROS.add(Libro(
+                      titulo: titulos,
+                      autor: autores,
+                      nropaginas: nropaginass));
                   print("");
                   print(" LIBRO RESGISTRADO ...");
                   // Libro(titulo: tituloz, precio: precioz, np: npz);
@@ -59,7 +59,7 @@ void main() {
                 break;
               case "2":
                 {
-                  listarBook(books);
+                  listarBook(LIBROS);
                 }
                 break;
               case "3":
@@ -81,32 +81,30 @@ void main() {
         {
           c = 0;
           while (c == 0) {
-            print("|      MENU  CD's      |");
-            print("________________________");
-            print("|                      |");
-            print("|   [1]  REGISTRAR     |");
-            print("|   [2]  LISTAR        |");
-            print("|   [3]  SALIR         |");
-            print("________________________");
-            print("");
-            print("  Digite la opción: ");
+            print("       MENU  CD's    ");
+            print("_____________________");
+            print("                     ");
+            print("  [1]  REGISTRAR     ");
+            print("  [2]  LISTAR        ");
+            print("   [3]  SALIR         ");
+            print("  Elija la opción: ");
             String? v = stdin.readLineSync();
 
             switch (v) {
               case "1":
                 {
-                  print("________________________");
-                  print("|   REGISTRAR CD's     |");
+                  print("|   REGISTRAR CD     |");
                   print("________________________");
                   print("-> TITULO :");
-                  tituloz = stdin.readLineSync();
-                  print("-> PRECIO :");
-                  precioz = stdin.readLineSync();
+                  titulos = stdin.readLineSync();
+                  print("-> AUTOR :");
+                  autores = stdin.readLineSync();
                   print("-> MINUTOS :");
-                  npz = stdin.readLineSync();
-                  CD.add(Cd(titulo: tituloz, precio: precioz, min: npz));
+                  nropaginass = stdin.readLineSync();
+                  CD.add(Cd(
+                      titulo: titulos, autor: autores, minutos: nropaginass));
                   print("");
-                  print(" LIBRO RESGISTRADO ...");
+                  print(" LIBRO RESGISTRADO ");
                 }
                 break;
               case "2":
@@ -132,7 +130,7 @@ void main() {
       case "3":
         {
           print("");
-          print("MUCHAS GRACIAS POR SU VISITA");
+          print(" GRACIAS POR SU VISITA");
           m = 1;
         }
         break;
@@ -146,71 +144,65 @@ void main() {
   }
 }
 
-class Papa {
+class Publicacion {
   final String? titulo;
-  final String? precio;
+  final String? autor;
 
-  Papa(this.titulo, this.precio);
+  Publicacion(this.titulo, this.autor);
 
   @override
   String toString() {
-    return 'PAPA: titulo: ${this.titulo}, precio: ${this.precio}';
+    return 'Publicacion: titulo: ${this.titulo}, precio: ${this.autor}';
   }
 }
 
-class Libro extends Papa {
-  final String? np;
+class Libro extends Publicacion {
+  final String? nropaginas;
   Libro({
     required String? titulo,
-    required String? precio,
-    required this.np,
-  }) : super(titulo, precio);
+    required String? autor,
+    required this.nropaginas,
+  }) : super(titulo, autor);
 
   @override
   String toString() {
-    return '|${darformat(this.titulo.toString(), 22)} |  ${darformat(this.precio.toString(), 8)} | ${darformat(this.np.toString(), 8)} |';
+    return '|${darformat(this.titulo.toString(), 22)} |  ${darformat(this.autor.toString(), 8)} | ${darformat(this.nropaginas.toString(), 8)} |';
   }
 }
 
-class Cd extends Papa {
-  final String? min;
+class Cd extends Publicacion {
+  final String? minutos;
   Cd({
     required String? titulo,
-    required String? precio,
-    required this.min,
-  }) : super(titulo, precio);
+    required String? autor,
+    required this.minutos,
+  }) : super(titulo, autor);
 
   @override
   String toString() {
-    return '|${darformat(this.titulo.toString(), 22)} |  ${darformat(this.precio.toString(), 8)} | ${darformat(this.min.toString(), 8)} |';
+    return '|${darformat(this.titulo.toString(), 22)} |  ${darformat(this.autor.toString(), 8)} | ${darformat(this.minutos.toString(), 8)} |';
   }
 }
 
 void listarBook(var books) {
   print("");
-  print("|               LISTA DE LIBROS                |");
-
-  print("|    TITULO             |  PRECIO   | PAGINAS  |");
-  print("________________________________________________");
+  print("               LISTA DE LIBROS                ");
+  print("    TITULO             |  AUTOR   | PAGINAS  ");
 
   for (var n in books) {
     print(n);
-    print("________________________________________________");
   }
   print("");
 }
 
 void listarCds(var books) {
   print("");
-  print("|                LISTA DE CD's                 |");
-  print("________________________________________________");
+  print("               LISTA DE CD                 ");
 
-  print("|    TITULO             |  PRECIO   | MINUTOS  |");
-  print("________________________________________________");
+  print("    TITULO             |  AUTOR   | MINUTOS  ");
 
   for (var n in books) {
     print(n);
-    print("________________________________________________");
   }
   print("");
 }
